@@ -1,0 +1,152 @@
+.skull-glow {
+  color: #ff3b00;           /* fiery orange */
+  font-size: 96px;
+  text-shadow:
+    0 0 10px #ff3b00,
+    0 0 25px #ff7700,
+    0 0 50px #ffbb33;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { text-shadow:
+    0 0 10px #ff3b00,
+    0 0 25px #ff7700,
+    0 0 50px #ffbb33; }
+  50% { text-shadow:
+    0 0 20px #ff3b00,
+    0 0 40px #ff7700,
+    0 0 80px #ffbb33; }
+}
+
+.glow-icon {
+  width: 32px;
+  height: 32px;
+  filter: drop-shadow(0 0 6px #0a030d) drop-shadow(0 0 12px #19071f);
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.glow-icon:hover {
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 10px #19071f) drop-shadow(0 0 20px #0a030d);
+}
+
+.icon {
+  width: 32px;
+  height: 32px;
+}
+
+/* Subtle continuous aura + gentle float */
+.aura-glow {
+  /* tweakable color */
+  --aura-rgb: 255, 255, 255;
+
+  /* start with lighter, tighter glow */
+  filter:
+    drop-shadow(0 0 3px rgba(var(--aura-rgb), 0.45))
+    drop-shadow(0 0 6px rgba(var(--aura-rgb), 0.25))
+    drop-shadow(0 0 12px rgba(var(--aura-rgb), 0.15));
+
+  /* run both animations together */
+  animation:
+    auraPulse 4.5s ease-in-out infinite,
+    floatY 4s ease-in-out infinite;
+
+  /* smoother transform rendering */
+  will-change: filter, transform;
+  transform: translateZ(0);
+}
+
+/* Softer pulsing glow */
+@keyframes auraPulse {
+  0%, 100% {
+    filter:
+      drop-shadow(0 0 2px rgba(var(--aura-rgb), 0.35))
+      drop-shadow(0 0 5px rgba(var(--aura-rgb), 0.20))
+      drop-shadow(0 0 10px rgba(var(--aura-rgb), 0.10));
+  }
+  50% {
+    /* slightly stronger, but still restrained */
+    filter:
+      drop-shadow(0 0 6px rgba(var(--aura-rgb), 0.55))
+      drop-shadow(0 0 10px rgba(var(--aura-rgb), 0.32))
+      drop-shadow(0 0 18px rgba(var(--aura-rgb), 0.18));
+  }
+}
+
+/* Gentle vertical bob for “elevating” feel */
+@keyframes floatY {
+  0%   { transform: translateY(0); }
+  25%  { transform: translateY(-4px); }
+  50%  { transform: translateY(0); }
+  75%  { transform: translateY(2px); }
+  100% { transform: translateY(0); }
+}
+
+/* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .aura-glow {
+    animation: none;
+  }
+}
+
+/* Lineage Cards */
+.lineage-card {
+  position: relative;
+  height: 360px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 16px;
+  overflow: hidden;
+  transition: transform 0.6s ease, box-shadow 0.6s ease;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.08);
+}
+
+.lineage-card .overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  transition: background 0.5s ease;
+}
+
+.lineage-card .content {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 1.5rem;
+  text-align: left;
+  z-index: 2;
+}
+
+.lineage-card h4 {
+  color: #fff;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.lineage-card p {
+  color: #ddd;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+/* Hover effects: subtle lift + glow */
+.lineage-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.12);
+}
+
+.lineage-card:hover .overlay {
+  background: rgba(0, 0, 0, 0.35);
+}
+
+/* Smooth aura-like subtle pulse */
+@keyframes subtlePulse {
+  0%, 100% { box-shadow: 0 0 10px rgba(255, 255, 255, 0.08); }
+  50% { box-shadow: 0 0 20px rgba(255, 255, 255, 0.15); }
+}
+
+.lineage-card {
+  animation: subtlePulse 5s ease-in-out infinite;
+}
+
